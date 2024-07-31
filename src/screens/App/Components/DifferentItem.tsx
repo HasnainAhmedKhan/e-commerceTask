@@ -1,18 +1,27 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Platform} from "react-native";
 import { Card } from "@rneui/base";
 import { Colors } from "../../../utils/Colors";
 import { useDispatch } from 'react-redux';
-import { addToCart } from "../../../Redux/Reducers/cartReducer";
-import { addToWishlist } from "../../../Redux/Reducers/wishlistReducer";
+import { addToCart } from "../../../Redux/Reducers/cartSlice";
+import { addToWishlist } from "../../../Redux/Reducers/wishlistSlice";
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-const DifferentItem = ({id, price, image, name, description }) => {
+
+type DifferentItemProps = {
+  id: string;
+  price: string;
+  image: any;
+  name: string;
+  description: string;
+};
+
+const DifferentItem: React.FC<DifferentItemProps> = ({ id, price, image, name, description }) => {
   const dispatch = useDispatch();
-  console.log(">>>", price, image, description);
+
   const handleAddToCart = () => {
     dispatch(addToCart({ id, price, image, name, description }));
   };
@@ -20,6 +29,7 @@ const DifferentItem = ({id, price, image, name, description }) => {
   const handleAddToWishlist = () => {
     dispatch(addToWishlist({ id, price, image, name, description }));
   };
+
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardstyle}>
@@ -31,17 +41,17 @@ const DifferentItem = ({id, price, image, name, description }) => {
             <Text style={styles.btnText}>{price}</Text>
           </View>
         </View>
-        
       </Card>
       <TouchableOpacity onPress={handleAddToCart} style={styles.button}>
         <Text style={styles.buttonText}>Add to Cart</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleAddToWishlist} style={styles.wishListBtn}>
-        <Text style={[styles.buttonText, {color: Colors.Orange}]}>Add to Wishlist</Text>
+        <Text style={[styles.buttonText, { color: Colors.Orange }]}>Add to Wishlist</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,7 +104,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    backgroundColor:Colors.Orange,
+    backgroundColor: Colors.Orange,
     padding: 10,
     borderRadius: 5,
     width: wp("26%"),
@@ -102,13 +112,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   wishListBtn: {
-    backgroundColor:Colors.White,
+    backgroundColor: Colors.White,
     padding: 10,
     borderRadius: 5,
     width: wp("26%"),
     borderColor: Colors.Orange,
     borderWidth: 1,
-    borderRadius: 5,
     marginTop: 5,
     marginHorizontal: 15,
   },
@@ -118,4 +127,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 export default DifferentItem;

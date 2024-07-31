@@ -1,9 +1,17 @@
-import React, {useEffect, useRef} from 'react';
-import {StyleSheet, View} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import MapView, { Marker, MapView as MapViewType } from 'react-native-maps';
 
-const MapComponent = ({userLocation}) => {
-  const mapViewRef = useRef(null);
+type MapComponentProps = {
+  userLocation: {
+    latitude: number;
+    longitude: number;
+  } | null;
+};
+
+const MapComponent: React.FC<MapComponentProps> = ({ userLocation }) => {
+  // Type the ref with MapView
+  const mapViewRef = useRef<MapViewType>(null);
 
   useEffect(() => {
     if (userLocation && mapViewRef.current) {

@@ -2,7 +2,16 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Colors } from '../../../utils/Colors';
 
-const CartItem = ({ item }) => {
+type CartItemProps = {
+  item: {
+    image: any;
+    name: string;
+    description: string;
+    price: string;
+  };
+};
+
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
   return (
     <View style={styles.itemContainer}>
       <Image source={item.image} style={styles.image} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
   Image,
+  ListRenderItem,
 } from "react-native";
 import { Colors } from "../../utils/Colors";
 import { VectorIcon } from "../../icons";
@@ -17,67 +18,73 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
-const HomeScreen = () => {
+interface Item {
+  id: string;
+  price: string;
+  name: string;
+  description: string;
+  image: any;
+}
+const HomeScreen: React.FC = () => {
   const differentItems = [
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 145.00",
       name: "Womens Bag",
       description: "Best bag to carry item",
       image: require("../../assets/images/Bag.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 200.00",
       name: "Man Sheos",
       description: "Best Selling Sheos",
       image: require("../../assets/images/Sheos.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Womens Bag",
       description: "Best bag to carry item",
       image: require("../../assets/images/Bag.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Man Sheos",
       description: "Best Selling Sheos",
       image: require("../../assets/images/Sheos.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Womens Bag",
       description: "Best bag to carry item",
       image: require("../../assets/images/Bag.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Man Sheos",
       description: "Best Selling Sheos",
       image: require("../../assets/images/Sheos.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Womens Bag",
       description: "Best bag to carry item",
       image: require("../../assets/images/Bag.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Man Sheos",
       description: "Best Selling Sheos",
       image: require("../../assets/images/Sheos.png"),
     },
     {
-      id: uuid.v4(),
+      id: uuid.v4() as string,
       price: "AED 120.00",
       name: "Womens Bag",
       description: "Best bag to carry item",
@@ -85,7 +92,7 @@ const HomeScreen = () => {
     },
   ];
 
-  const renderDifferentItem = ({ item }) => (
+  const renderDifferentItem = ({ item }: { item: any }) => (
     <DifferentItem
       id={item.id}
       price={item.price}

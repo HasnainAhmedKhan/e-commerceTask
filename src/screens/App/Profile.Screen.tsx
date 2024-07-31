@@ -15,12 +15,17 @@ import Geolocation from "react-native-geolocation-service";
 import { request, PERMISSIONS, RESULTS } from "react-native-permissions";
 import MapComponent from "./Components/MapComponent";
 
-const ProfileScreen = () => {
-  const [userLocation, setUserLocation] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+interface Location {
+  latitude: number;
+  longitude: number;
+}
 
-  const requestLocationPermission = async () => {
+const ProfileScreen: React.FC = () => {
+  const [userLocation, setUserLocation] = useState<Location | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const requestLocationPermission = async (): Promise<boolean> => {
     if (Platform.OS === "android") {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -105,12 +110,11 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 16,
-    fontFamily: "Inter-SemiBold",
     color: Colors.Black,
+    fontFamily: "Inter-SemiBold",
   },
   loaderContainer: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

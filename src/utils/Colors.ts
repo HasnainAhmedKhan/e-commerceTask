@@ -1,5 +1,6 @@
-export const Colors = {
-    Black : '#000000',
+type ColorValue = string;
+export const Colors: Record<string, ColorValue> = {
+    Black: '#000000',
     White: '#ffffff',
     Blue: '#3475FF',
     Orange: '#F47805',
@@ -8,4 +9,4 @@ export const Colors = {
     LightPink: '#EFD9C8',
     Red: '#FE3D00',
     DarkOrange: '#FB4309',
-}
+};

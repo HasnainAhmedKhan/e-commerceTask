@@ -1,13 +1,33 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet, Platform, Text} from 'react-native';
-import {VectorIcon} from '../../../icons';
-import {Colors} from '../../../utils/Colors';
+import { View, TouchableOpacity, StyleSheet, Platform, Text } from 'react-native';
+import { VectorIcon } from '../../../icons';
+import { Colors } from '../../../utils/Colors';
 
-const BottomBar = ({state, descriptors, navigation}) => {
+type BottomBarProps = {
+  state: {
+    routes: Array<{ key: string; name: string }>;
+    index: number;
+  };
+  descriptors: {
+    [key: string]: {
+      options: {
+        type: string;
+        name: string;
+        tabBarLabel?: string;
+      };
+    };
+  };
+  navigation: {
+    emit: (event: { type: string; target: string }) => { defaultPrevented: boolean };
+    navigate: (routeName: string, params?: { screenName?: string }) => void;
+  };
+};
+
+const BottomBar: React.FC<BottomBarProps> = ({ state, descriptors, navigation }) => {
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
+        const { options } = descriptors[route.key];
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -17,7 +37,7 @@ const BottomBar = ({state, descriptors, navigation}) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, {screenName: route.name});
+            navigation.navigate(route.name, { screenName: route.name });
           }
         };
         return (
@@ -68,13 +88,6 @@ const styles = StyleSheet.create({
   },
   tabButtonFocused: {
     backgroundColor: Colors.Orange,
-  },
-  creatpost: {
-    height: 70,
-    width: 70,
-    backgroundColor: Colors.Yellow,
-    borderRadius: 35,
-    bottom: 20,
   },
 });
 

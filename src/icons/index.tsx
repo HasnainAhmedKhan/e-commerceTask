@@ -9,8 +9,18 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-export const VectorIcon = ({name, color, size, type, style, onPress}) => {
+type VectorIconProps = {
+  name: string;
+  color?: string;
+  size?: number;
+  type: 'FontAwesome' | 'FontAwesome5' | 'Ionicons' | 'AntDesign' | 'EvilIcons' | 'Entypo' | 'Feather' | 'Fontisto' | 'MaterialIcons' | 'MaterialCommunityIcons';
+  style?: StyleProp<TextStyle>;
+  onPress?: () => void;
+};
+
+export const VectorIcon: React.FC<VectorIconProps> = ({ name, color, size, type, style, onPress }) => {
   switch (type) {
     case 'FontAwesome':
       return (
@@ -112,6 +122,6 @@ export const VectorIcon = ({name, color, size, type, style, onPress}) => {
         />
       );
     default:
-      return <></>;
+      return null;
   }
 };
